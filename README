@@ -1,0 +1,64 @@
+📂 Cấu trúc thư mục chuẩn trong lib/
+Bạn hãy tạo cây thư mục trong VS Code đúng như thế này nhé:
+lib/
+|-- main.dart                      # Chỉ dùng để khởi tạo app, không vẽ giao diện
+|-- main_wrapper.dart              # Chứa Menu chính (Bottom Nav) và các trang trống
+|
+|-- share/                         # NƠI DÙNG CHUNG CHO TOÀN APP
+|   |-- api/                       # Cấu hình API dùng chung
+|   |   |-- api_client.dart        # Nơi cài đặt Base URL, Timeout, Token...
+|   |   |-- api_endpoints.dart     # Khai báo các đường link URL
+|   |-- state/                     # Quản lý State (trạng thái) toàn cục
+|   |   |-- app_theme_state.dart   # Ví dụ: State chuyển chế độ Sáng/Tối
+|   |   |-- user_session_state.dart# Ví dụ: State lưu thông tin User sau khi login
+|   |-- widgets/                   # Các Widget dùng chung ở nhiều màn hình
+|       |-- custom_button.dart     # Cái nút bấm chung cho cả app
+|       |-- custom_textfield.dart  # Ô nhập liệu chuẩn
+|
+|-- features/                      # NƠI CHỨA CÁC TÍNH NĂNG RIÊNG BIỆT
+|   |
+|   |-- login/                     # 🚀 TÍNH NĂNG LOGIN (Người A toàn quyền ở đây)
+|   |   |-- data/                  # Xử lý dữ liệu
+|   |   |   |-- login_api.dart     # Hàm gọi API đăng nhập riêng
+|   |   |-- domain/                # Chứa khuôn mẫu dữ liệu
+|   |   |   |-- user_model.dart    # Định nghĩa thông tin User
+|   |   |-- presentation/          # Phần hiển thị giao diện
+|   |   |   |-- state/             # State riêng (ví dụ: đang load, lỗi...)
+|   |   |   |   |-- login_state.dart
+|   |   |   |-- screens/           # Màn hình thật
+|   |   |   |   |-- login_screen.dart
+|   |   |   |-- widgets/           # Widget con chỉ dùng cho màn login
+|   |   |       |-- login_form.dart
+|   |
+|   |-- cart/                      # 🛒 TÍNH NĂNG GIỎ HÀNG (Người B toàn quyền ở đây)
+|   |   |-- data/
+|   |   |   |-- cart_api.dart      # Hàm gọi API lấy danh sách giỏ hàng
+|   |   |-- domain/
+|   |   |   |-- cart_item_model.dart # Định nghĩa 1 món hàng trong giỏ
+|   |   |-- presentation/
+|   |   |   |-- state/
+|   |   |   |   |-- cart_state.dart
+|   |   |   |-- screens/
+|   |   |   |   |-- cart_screen.dart
+|   |   |   |-- widgets/
+|   |   |       |-- cart_item_tile.dart
+
+
+Thay vì để code Backend chui vào trong thư mục lib/ của Flutter, các bạn nên tổ chức cái Repo GitHub của mình như sau:
+Plaintext
+my_awesome_project/ (Thư mục gốc của Repo trên GitHub)
+|
+|-- mobile_app/           # ĐÂY LÀ NƠI CHỨA TOÀN BỘ PROJECT FLUTTER
+|   |-- lib/
+|   |-- android/
+|   |-- ios/
+|   |-- pubspec.yaml
+|
+|-- backend/             # ĐÂY LÀ NƠI CHỨA CODE SERVER (Node.js, Python...)
+|   |-- src/
+|   |-- database/
+|   |-- package.json (nếu là Node.js)
+|
+|-- docs/                # Chứa tài liệu, file thiết kế, hoặc link Swagger
+|-- .gitignore           # File cấu hình để Git bỏ qua các file rác
+|-- README.md            # Hướng dẫn cách chạy cả 2 phần
