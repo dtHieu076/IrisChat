@@ -1,0 +1,5 @@
+lib/share/api/
+├── api_client.dart       # Cấu hình Dio (BaseURL, Timeout, Interceptors)
+├── api_constants.dart    # Nơi chứa tất cả các đường link (Endpoints)
+
+

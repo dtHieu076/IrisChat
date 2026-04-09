@@ -1,0 +1,40 @@
+lib/
+├── core/
+│   ├── api/
+│   │   ├── api_client.dart           # Cấu hình Dio, Interceptors
+│   │   └── api_constants.dart        # Base URL, Endpoints dùng chung
+│   ├── repositories/                 # NƠI CHỨA CÁC LỚP ẢO (INTERFACES)
+│   │   ├── i_auth_repository.dart    # abstract class IAuthRepository
+│   │   └── i_user_repository.dart    # abstract class IUserRepository
+│   ├── theme/                        # App colors, Text styles
+│   ├── utils/                        # Validators, Formatters
+│   └── di/
+│       └── locator.dart              # Nơi đăng ký GetIt (Service Locator)
+│
+└── features/
+    ├── auth/
+    │   ├── data/
+    │   │   ├── datasources/
+    │   │   │   └── auth_api.dart     # Thực hiện HTTP request cụ thể cho Auth
+    │   │   ├── models/
+    │   │   │   ├── login_request.dart
+    │   │   │   └── login_response.dart
+    │   │   └── repositories/
+    │   │       └── auth_repository_impl.dart  # Thực thi IAuthRepository
+    │   ├── logic/
+    │   │   └── auth_provider.dart    # Gọi IAuthRepository thông qua DI
+    │   └── presentation/
+    │       ├── screens/
+    │       │   └── login_screen.dart
+    │       └── widgets/
+    │           └── login_button.dart
+    │
+    └── user/                         # Feature khác ví dụ như quản lý Account
+        ├── data/
+        │   ├── datasources/
+        │   │   └── user_api.dart
+        │   ├── models/
+        │   │   └── user_model.dart
+        │   └── repositories/
+        │       └── user_repository_impl.dart  # Thực thi IUserRepository
+        └── ...

@@ -1,0 +1,61 @@
+Hệ thống này được thiết kế để giải quyết hai vấn đề lớn nhất trong lập trình Flutter: 
+Sự phụ thuộc chằng chịt và Quản lý trạng thái giao diện.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Sự giải phóng khỏi "Ma trận Import"
+Hãy tưởng tượng nếu bạn muốn gọi hàm loginAction từ màn hình UI mà không có hệ thống này, 
+bạn sẽ phải import vô số đường dẫn rườm rà và thực hiện một chuỗi khai báo khởi tạo "dây chuyền" như:
+
+final auth = AuthProvider(AuthRepository(AuthApi(ApiClient(Dio()))));
+
+Việc này khiến UI của bạn dính chặt lấy Data. Chỉ cần một thay đổi nhỏ ở tầng dưới, toàn bộ UI sẽ lỗi.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Với locator.dart (GetIt):
+Bạn chỉ cần một dòng duy nhất: sl<IAuthProvider>().
+
+Mục đích: Tự động tìm và lắp ráp các linh kiện phức tạp lại cho bạn.
+
+Lợi ích: UI hoàn toàn "mù" trước logic bên dưới, giúp bạn dễ dàng thay đổi "ruột" code mà không làm hỏng giao diện.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Tại sao cần cả Locator VÀ AppProviders?
+Nhiều người hỏi: "Đã có Locator tìm đồ rồi, cần AppProviders chi nữa?". 
+Câu trả lời nằm ở sự phân công lao động:
+
+Thành phần,                 Vai trò (Analogy),                 Nhiệm vụ chính
+Locator (GetIt),            Nhà máy điện,                      "Sản xuất và chứa ""nguồn điện"" (Logic, API, Repo). Không cần BuildContext."
+AppProviders,               Ổ cắm điện,                        "Đưa ""điện"" từ nhà máy đến tận tay UI. Giúp UI tự động vẽ lại (Rebuild) khi dữ liệu thay đổi."
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Nếu thiếu AppProviders: Bạn lấy được dữ liệu từ Locator, nhưng UI sẽ "đứng hình" không chịu cập nhật khi bạn gọi notifyListeners().
+Nếu thiếu Locator: Bạn phải tự tay kéo dây điện từ nhà máy về nhà (viết code khởi tạo cực kỳ dài dòng trong Provider).
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+3. Cách sử dụng trong thực tế
+Bước 1: Đăng ký "Nhà máy" (Trong locator.dart)
+sl.registerLazySingleton<IAuthProvider>(() => AuthProviderImpl(sl()));
+
+Bước 2: Cắm "Ổ điện" (Trong app_providers.dart)
+ChangeNotifierProvider<IAuthProvider>(create: (_) => sl<IAuthProvider>()),
+
+Bước 3: Sử dụng (Tại UI)
+// Gọi logic (Không làm UI vẽ lại)
+context.read<IAuthProvider>().loginAction(phone, pass);
+
+// Theo dõi dữ liệu (UI sẽ tự vẽ lại khi có thông báo)
+final state = context.watch<IAuthProvider>().state;
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+⚠️ Quy tắc sống còn
+UI chỉ nhìn vào Interface: Luôn dùng IAuthProvider, không bao giờ dùng AuthProviderImpl.
+
+Không khởi tạo thủ công: Mọi thứ phải đi qua sl (Locator).
+
+Đúng việc đúng chỗ: Dùng Locator để "tìm đồ", dùng Provider để "lắng nghe biến động".
