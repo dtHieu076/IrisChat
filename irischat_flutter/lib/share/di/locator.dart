@@ -3,7 +3,7 @@ import 'package:irischat_flutter/share/api/api_client.dart';
 import 'package:irischat_flutter/share/logic/auth/i_auth_provider.dart';
 
 // --- IMPORT INTERFACES (Hợp đồng ở Core/Share) ---
-import '../../share/logic/auth/i_auth_repository.dart';
+import '../../features/auth/data/i_auth_repository.dart';
 import '../../features/auth/logic/auth_provider_impl.dart';
 
 // --- IMPORT IMPLEMENTATIONS (Thực thi ở Features) ---

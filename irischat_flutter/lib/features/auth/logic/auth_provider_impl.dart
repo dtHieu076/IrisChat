@@ -1,6 +1,6 @@
 import 'package:irischat_flutter/share/logic/auth/auth_state.dart';
 import 'package:irischat_flutter/share/logic/auth/i_auth_provider.dart';
-import 'package:irischat_flutter/share/logic/auth/i_auth_repository.dart';
+import 'package:irischat_flutter/features/auth/data/i_auth_repository.dart';
 import '../data/auth_models.dart';
 
 class AuthProviderImpl extends IAuthProvider {

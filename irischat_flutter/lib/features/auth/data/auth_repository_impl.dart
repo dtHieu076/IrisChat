@@ -1,6 +1,6 @@
 import 'package:irischat_flutter/features/auth/data/auth_api.dart';
 import 'package:irischat_flutter/features/auth/data/auth_models.dart';
-import 'package:irischat_flutter/share/logic/auth/i_auth_repository.dart';
+import 'package:irischat_flutter/features/auth/data/i_auth_repository.dart';
 
 class AuthRepositoryImpl implements IAuthRepository {
   final AuthApi _authApi;

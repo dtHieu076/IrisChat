@@ -33,15 +33,22 @@ class LoginResponse {
 
 class UserInfo {
   final String id;
-  final String username;
+  final String username_clean;
+  final String display_name;
   final String avatarUrl;
 
-  UserInfo({required this.id, required this.username, required this.avatarUrl});
+  UserInfo({
+    required this.id,
+    required this.username_clean,
+    required this.display_name,
+    required this.avatarUrl,
+  });
 
   factory UserInfo.fromJson(Map<String, dynamic> json) {
     return UserInfo(
       id: json['id'],
-      username: json['username'],
+      username_clean: json['username_clean'],
+      display_name: json['display_name'],
       avatarUrl: json['avatarUrl'],
     );
   }
