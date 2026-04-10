@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:irischat_flutter/share/providers/app_providers.dart';
 import 'package:irischat_flutter/share/di/locator.dart';
 import 'features/auth/presentation/login_screen.dart';
+import 'features/chat/presentation/chat_list_screen.dart';
 
 void main() async {
   // 1. Đảm bảo các dịch vụ hệ thống của Flutter đã sẵn sàng
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       ),
 
       // Điều hướng vào màn hình đầu tiên
-      home: const LoginScreen(),
+      home: const ChatListScreen(),
     );
   }
 }
