@@ -42,6 +42,27 @@ class AuthProviderImpl extends IAuthProvider {
   }
 
   @override
+  Future<String> registerAction(
+    String phoneNumber,
+    String password,
+    String displayName,
+    String avatarUrl,
+  ) async {
+    try {
+      final request = RegisterRequest(
+        phoneNumber: phoneNumber,
+        password: password,
+        displayName: displayName,
+        avatarUrl: avatarUrl,
+      );
+      final response = await _authRepository.register(request);
+      return response; // Trả về thông báo thành công
+    } catch (e) {
+      throw Exception('Đăng ký thất bại: ${e.toString()}');
+    }
+  }
+
+  @override
   void logoutAction() {
     _currentUser = null;
     _state = const AuthInitial();

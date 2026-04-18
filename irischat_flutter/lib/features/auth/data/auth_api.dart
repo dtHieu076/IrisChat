@@ -19,4 +19,16 @@ class AuthApi {
       rethrow;
     }
   }
+
+  Future<String> register(RegisterRequest request) async {
+    try {
+      final response = await _apiClient.dio.post(
+        ApiConstants.register,
+        data: request.toJson(),
+      );
+      return response.data['message']; // Trả về thông báo thành công
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

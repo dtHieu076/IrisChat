@@ -8,6 +8,13 @@ abstract class IAuthProvider extends ChangeNotifier {
   bool get isAuthenticated;
 
   Future<void> loginAction(String phoneNumber, String password);
-  void logoutAction();
 
+  Future<String> registerAction(
+    String phoneNumber,
+    String password,
+    String displayName,
+    String avatarUrl,
+  );
+
+  void logoutAction();
 }

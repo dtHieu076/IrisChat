@@ -10,6 +10,29 @@ class LoginRequest {
   }
 }
 
+class RegisterRequest {
+  final String phoneNumber;
+  final String password;
+  final String displayName;
+  final String avatarUrl;
+
+  RegisterRequest({
+    required this.phoneNumber,
+    required this.password,
+    required this.displayName,
+    required this.avatarUrl,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'phoneNumber': phoneNumber,
+      'password': password,
+      'displayName': displayName,
+      'avatarUrl': avatarUrl,
+    };
+  }
+}
+
 // Định dạng cáu trúc response
 class LoginResponse {
   final String accessToken;

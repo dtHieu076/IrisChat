@@ -21,4 +21,13 @@ class AuthRepositoryImpl implements IAuthRepository {
       rethrow;
     }
   }
+
+  Future<String> register(RegisterRequest request) async {
+    try {
+      final String response = await _authApi.register(request);
+      return response; // Trả về thông báo thành công
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
